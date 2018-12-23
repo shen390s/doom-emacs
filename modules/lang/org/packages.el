@@ -8,7 +8,7 @@
   (package! org-plus-contrib
     :recipe (:fetcher github :repo "emacsmirror/org" :files (:defaults "contrib/lisp/*.el"))))
 
-(package! org-bullets :recipe (:fetcher github :repo "hlissner/org-bullets"))
+(package! org-bullets :recipe (:fetcher github :repo "sabof/org-bullets"))
 (package! toc-org)
 
 (when (featurep! +attach)
@@ -17,7 +17,8 @@
 (when (featurep! +babel)
   (package! ob-go)
   (package! ob-mongo)
-  (package! ob-redis)
+  (package! ob-redis
+    :recipe (:fetcher github :repo "stardiviner/ob-redis"))
   (package! ob-restclient)
   (package! ob-rust)
   (package! ob-sql-mode)
@@ -27,7 +28,8 @@
   (package! ox-pandoc))
 
 (when (featurep! +present)
-  (package! centered-window-mode)
+  (package! centered-window
+    :recipe (:fetcher github :repo "anler/centered-window-mode"))
   (package! org-tree-slide)
   (package! ox-reveal))
 

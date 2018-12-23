@@ -3,7 +3,8 @@
 
 (package! pass)
 (package! password-store)
-(package! auth-password-store)
+(package! auth-source-pass
+  :recipe (:fetcher github :repo "DamienCassou/auth-password-store"))
 
 (when (featurep! :completion helm)
   (package! helm-pass))

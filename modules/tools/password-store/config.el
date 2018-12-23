@@ -38,5 +38,5 @@
 ;; Is built into Emacs 26+
 (if (require 'auth-source-pass nil t)
     (auth-source-pass-enable)
-  (def-package! auth-password-store
+  (def-package! auth-source-pass
     :config (auth-pass-enable)))
