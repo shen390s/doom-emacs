@@ -71,11 +71,11 @@
   :commands highlight-quoted-mode)
 
 
-(def-package! slime
-  :defer t
-  :config
-  (setq inferior-lisp-program "clisp")
-  (require 'slime-fuzzy))
+;; (def-package! slime
+;;   :defer t
+;;   :config
+;;   (setq inferior-lisp-program "clisp")
+;;   (require 'slime-fuzzy))
 
 
 (def-package! macrostep
