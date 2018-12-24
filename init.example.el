@@ -83,6 +83,7 @@
        crystal           ; ruby at the speed of c
        clojure           ; java with a lisp
        csharp            ; unity, .NET, and mono shenanigans
+       common-lisp       ; common lisp
        data              ; config/data formats
        elixir            ; erlang done right
        elm               ; care for a cup of TEA?
