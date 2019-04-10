@@ -104,7 +104,7 @@ properties:
                                  ((featurep! :completion helm) 'helm)
                                  (t 'popup))))
 
-(def-package! ggtag
+(def-package! ggtags
   :config (progn
             (defun ggtags-c-mode-hook ()
               (ggtags-mode 1)
