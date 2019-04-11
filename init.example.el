@@ -60,6 +60,7 @@
       ;tabbar            ; FIXME an (incomplete) tab bar for Emacs
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        (window-select +ace-window)  ; visually switch windows
+       misc              ; misc setting for UI
 
        :tools
        dired             ; making dired pretty [functional]
@@ -68,7 +69,7 @@
        gist              ; interacting with github gists
        imenu             ; an imenu sidebar and searchable code index
        impatient-mode    ; show off code over HTTP
-      ;macos             ; MacOS-specific commands
+       macos             ; MacOS-specific commands
        make              ; run make tasks from Emacs
        neotree           ; a project drawer, like NERDTree for vim
        password-store    ; password manager for nerds
@@ -80,23 +81,23 @@
        :lang
        assembly          ; assembly for fun or debugging
        cc                ; C/C++/Obj-C madness
-       crystal           ; ruby at the speed of c
-       clojure           ; java with a lisp
-       csharp            ; unity, .NET, and mono shenanigans
+       ;crystal           ; ruby at the speed of c
+       ;clojure           ; java with a lisp
+       ;csharp            ; unity, .NET, and mono shenanigans
        common-lisp       ; common lisp
        data              ; config/data formats
-       elixir            ; erlang done right
+       ;elixir            ; erlang done right
        elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
-       go                ; the hipster dialect
+       ;go                ; the hipster dialect
        (haskell +intero) ; a language that's lazier than I am
        hy                ; readability of scheme w/ speed of python
-       (java +meghanada) ; the poster child for carpal tunnel syndrome
+       ;(java +meghanada) ; the poster child for carpal tunnel syndrome
        javascript        ; all(hope(abandon(ye(who(enter(here))))))
-       julia             ; a better, faster MATLAB
+       ;julia             ; a better, faster MATLAB
        latex             ; writing papers in Emacs has never been so fun
        ledger            ; an accounting system in Emacs
-       lua               ; one-based indices? one-based indices
+       ;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
@@ -107,13 +108,13 @@
         +present         ; Emacs for presentations
         ;; TODO +publish
         )
-       perl              ; write code no one else can comprehend
+       ;perl              ; write code no one else can comprehend
        php               ; make php less awful to work with
        plantuml          ; diagrams for confusing people more
-       purescript        ; javascript, but functional
+       ;purescript        ; javascript, but functional
        python            ; beautiful is better than ugly
        rest              ; Emacs as a REST client
-       ruby              ; 1.step do {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;ruby              ; 1.step do {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        scala             ; java, but good
        sh                ; she sells (ba|z)sh shells on the C xor
@@ -129,7 +130,7 @@
       ;irc               ; how neckbeards socialize
       ;rss               ; emacs as an RSS reader
       ;twitter           ; twitter client https://twitter.com/vnought
-      ;write             ; emacs as a word processor (latex + org + markdown)
+      write             ; emacs as a word processor (latex + org + markdown)
 
        ;; Private modules are where you place your personal configuration files.
        ;; By default, they are not tracked. There is one module included here,
