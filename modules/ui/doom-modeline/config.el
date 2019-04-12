@@ -367,9 +367,11 @@ directory, the file name, and its state (modified, read-only or non-existent)."
    (concat (format-mode-line mode-name)
            (when (stringp mode-line-process)
              mode-line-process)
-	   (progn
-              (require 'which-func)
-	      (format "[%s]" (which-function)))
+	       (progn
+             (require 'which-func)
+             (let ((current-function (which-function)))
+               (when current-function
+                 (format "[%s]" current-function))))
            (and (featurep 'face-remap)
                 (/= text-scale-mode-amount 0)
                 (format " (%+d)" text-scale-mode-amount)))
