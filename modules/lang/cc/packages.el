@@ -6,18 +6,12 @@
 (package! demangle-mode)
 (package! disaster)
 (package! glsl-mode)
-(package! irony)
-(package! irony-eldoc)
 (package! modern-cpp-font-lock)
 (package! opencl-mode)
 
-(when (featurep! :feature syntax-checker)
-  (package! flycheck-irony))
-
 (when (featurep! :completion company)
-  (package! company-glsl :recipe (:fetcher github :repo "Kaali/company-glsl"))
-  (package! company-irony)
-  (package! company-irony-c-headers))
+  (package! company-glsl :recipe (:fetcher github :repo "Kaali/company-glsl")))
 
 (package! lsp-mode)
-(package! emacs-cquery)
+(package! emacs-cquery
+  :recipe (:fetcher github :repo "cquery-project/emacs-cquery"))

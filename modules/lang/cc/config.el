@@ -53,8 +53,7 @@ compilation database is present in the project.")
   (set! :electric '(c-mode c++-mode objc-mode java-mode)
         :chars '(?\n ?\}))
   (set! :company-backend
-        '(c-mode c++-mode objc-mode)
-        '(company-irony-c-headers company-irony))
+        '(c-mode c++-mode objc-mode))
 
   ;;; Style/formatting
   ;; C/C++ style settings
@@ -94,45 +93,17 @@ compilation database is present in the project.")
         :i ">" #'+cc/autoclose->-maybe)
 
   ;; ...and leave it to smartparens
-  (sp-with-modes '(c-mode c++-mode objc-mode java-mode)
-    (sp-local-pair "<" ">" :when '(+cc-sp-point-is-template-p +cc-sp-point-after-include-p))
-    (sp-local-pair "/*" "*/" :post-handlers '(("||\n[i]" "RET") ("| " "SPC")))
-    ;; Doxygen blocks
-    (sp-local-pair "/**" "*/" :post-handlers '(("||\n[i]" "RET") ("||\n[i]" "SPC")))
-    (sp-local-pair "/*!" "*/" :post-handlers '(("||\n[i]" "RET") ("[d-1]< | " "SPC")))))
+  (after! smartparens
+    (sp-with-modes '(c-mode c++-mode objc-mode java-mode)
+      (sp-local-pair "<" ">" :when '(+cc-sp-point-is-template-p +cc-sp-point-after-include-p))
+      (sp-local-pair "/*" "*/" :post-handlers '(("||\n[i]" "RET") ("| " "SPC")))
+      ;; Doxygen blocks
+      (sp-local-pair "/**" "*/" :post-handlers '(("||\n[i]" "RET") ("||\n[i]" "SPC")))
+      (sp-local-pair "/*!" "*/" :post-handlers '(("||\n[i]" "RET") ("[d-1]< | " "SPC"))))))
 
 
 (def-package! modern-cpp-font-lock
   :hook (c++-mode . modern-c++-font-lock-mode))
-
-
-(def-package! irony
-  :after cc-mode
-  :commands irony-install-server
-  :preface (setq irony-server-install-prefix (concat doom-etc-dir "irony-server/"))
-  :init
-  (defun +cc|init-irony-mode ()
-    (when (memq major-mode '(c-mode c++-mode objc-mode))
-      (irony-mode +1)))
-  (add-hook! (c-mode c++-mode objc-mode) #'+cc|init-irony-mode)
-  :config
-  (unless (file-directory-p irony-server-install-prefix)
-    (warn "irony-mode: server isn't installed; run M-x irony-install-server"))
-  ;; Initialize compilation database, if present. Otherwise, fall back on
-  ;; `+cc-default-compiler-options'.
-  (add-hook 'irony-mode-hook #'+cc|irony-init-compile-options))
-
-(def-package! irony-eldoc
-  :after irony
-  :hook (irony-mode . irony-eldoc))
-
-(def-package! flycheck-irony
-  :when (featurep! :feature syntax-checker)
-  :after irony
-  :config
-  (add-hook 'irony-mode-hook #'flycheck-mode)
-  (flycheck-irony-setup))
-
 
 ;;
 ;; Tools
@@ -173,14 +144,6 @@ compilation database is present in the project.")
   :when (featurep! :completion company)
   :after cmake-mode)
 
-(def-package! company-irony
-  :when (featurep! :completion company)
-  :after irony)
-
-(def-package! company-irony-c-headers
-  :when (featurep! :completion company)
-  :after company-irony)
-
 (def-package! company-glsl
   :when (featurep! :completion company)
   :after glsl-mode
@@ -192,4 +155,15 @@ compilation database is present in the project.")
 (def-package! lsp-mode)
 
 (def-package! emacs-cquery
-  :commands lsp)
+  :commands lsp
+  :init (progn
+          (require 'cquery)
+          (setq  cquery-executable (executable-find "cquery"))
+          (setq  cquery-extra-init-params '(:cacheFormat "msgpack")))
+  :config (progn
+            (defun enable-cquery ()
+              (condition-case nil
+                  (lsp)
+                (user-error nil)))
+            (add-hook 'c-mode-common-hook #'enable-cquery)))
+

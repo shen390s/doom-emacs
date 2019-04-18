@@ -9,9 +9,10 @@
           (save-excursion (other-window 1) (selected-window))
         (selected-window))
     (let ((fn (plist-get +jump-current-functions prop)))
-      (if (commandp fn)
-          (call-interactively fn)
-        (funcall fn identifier)))))
+      (when fn
+        (if (commandp fn)
+            (call-interactively fn)
+          (funcall fn identifier))))))
 
 ;;;###autoload
 (defun +jump/definition (identifier &optional other-window)
