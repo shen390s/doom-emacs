@@ -189,53 +189,7 @@ compilation database is present in the project.")
       (warn "glsl-mode: couldn't find glslangValidator, disabling company-glsl")
     (set! :company-backend 'glsl-mode '(company-glsl))))
 
+(def-package! lsp-mode)
 
-;;
-;; Rtags Support
-;;
-
-(def-package! rtags
-  :after cc-mode
-  :config
-  (setq rtags-autostart-diagnostics t
-        rtags-use-bookmarks nil
-        rtags-completions-enabled nil
-        ;; If not using ivy or helm to view results, use a pop-up window rather
-        ;; than displaying it in the current window...
-        rtags-results-buffer-other-window t
-        ;; ...and don't auto-jump to first match before making a selection.
-        rtags-jump-to-first-match nil)
-
-  (let ((bins (cl-remove-if-not #'executable-find '("rdm" "rc"))))
-    (if (/= (length bins) 2)
-        (warn "cc-mode: couldn't find %s, disabling rtags support" bins)
-      (add-hook! (c-mode c++-mode) #'rtags-start-process-unless-running)
-      (set! :jump '(c-mode c++-mode)
-        :definition #'rtags-find-symbol-at-point
-        :references #'rtags-find-references-at-point)))
-
-  (add-hook 'doom-cleanup-hook #'rtags-cancel-process)
-  (add-hook! kill-emacs (ignore-errors (rtags-cancel-process)))
-
-  ;; Use rtags-imenu instead of imenu/counsel-imenu
-  (map! :map (c-mode-map c++-mode-map) [remap imenu] #'rtags-imenu)
-
-  (add-hook 'rtags-jump-hook #'evil-set-jump)
-  (add-hook 'rtags-after-find-file-hook #'recenter))
-
-(def-package! ivy-rtags
-  :when (featurep! :completion ivy)
-  :after rtags
-  :init
-  ;; NOTE Ivy integration breaks when rtags is byte-compiled with Emacs 26 or
-  ;; later, so we un-byte-compile it before we load it.
-  (eval-when-compile
-    (when (>= emacs-major-version 26)
-      (when-let* ((elc-file (locate-library "rtags.elc" t doom--package-load-path)))
-        (delete-file elc-file))))
-  :config (setq rtags-display-result-backend 'ivy))
-
-(def-package! helm-rtags
-  :when (featurep! :completion helm)
-  :after rtags
-  :config (setq rtags-display-result-backend 'helm))
+(def-package! emacs-cquery
+  :commands lsp)

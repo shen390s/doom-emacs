@@ -19,8 +19,5 @@
   (package! company-irony)
   (package! company-irony-c-headers))
 
-(package! rtags)
-(when (featurep! :completion ivy)
-  (package! ivy-rtags))
-(when (featurep! :completion helm)
-  (package! helm-rtags))
+(package! lsp-mode)
+(package! emacs-cquery)
