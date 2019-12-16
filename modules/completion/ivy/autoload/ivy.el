@@ -130,7 +130,7 @@ search current file. See `+ivy-task-tags' to customize what this searches for."
             :caller '+ivy/tasks))
 
 ;;;###autoload
-(defun +ivy*counsel-ag-function (string base-cmd extra-ag-args)
+(defun +ivy*counsel-ag-function (string &optional base-cmd extra-ag-args)
   "Advice to 1) get rid of the character limit from `counsel-ag-function' and 2)
 disable ivy's over-zealous parentheses quoting behavior (if i want literal
 parentheses, I'll escape them myself).
@@ -139,6 +139,8 @@ NOTE This may need to be updated frequently, to meet changes upstream (in
 counsel-rg)."
   (when (null extra-ag-args)
     (setq extra-ag-args ""))
+  (when (null base-cmd)
+    (setq base-cmd "ag %s"))
   (if (< (length string) 1)  ;; #1
       (counsel-more-chars 1)
     (let ((default-directory counsel--git-dir)
